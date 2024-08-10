@@ -8,6 +8,9 @@ export default async function UploadImage ({ params } : { params: { id: string }
         <li className="px-4 py-2">The picture formats that are accepted are *.png and *.jpg</li>
         <li className="px-4 py-2">You application will not be considered if you do not upload a clear picture of yourself.</li>
       </ul>
+      <div className="bg-seance-50 text-seance-950 w-full">
+        Test submission successful with ID: {params.id}
+      </div>
       <div className="mt-32 border p-8 lg:w-9/12 mx-auto rounded-md shadow-lg flex flex-col justify-center">
         <h1 className="mb-10 flex justify-center text-2xl md:text-3xl text-seance-100 font-bold tracking-tight">
           Upload a Passport-Sized Picture of Yourself

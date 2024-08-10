@@ -28,8 +28,8 @@ export default function Footer () {
   return (
     <section className="flex justify-between bg-mountain-mist-500 min-h-32">
       <div className="p-5">
-        <span className="md:text-sm text-seance-100"><i className="bi bi-c-circle-fill text-xs text-seance-200 mr-2"></i><small className="lg:text-2xl sm:text-xs tracking-tight">Courtyard Of Truth</small></span>
-        <span className="ml-3 md:hidden">{new Date().getFullYear()}</span>
+        <span className="md:text-sm text-seance-100"><i className="bi bi-c-circle-fill text-xs text-seance-200 mr-2"></i><small className="lg:text-2xl text-xs tracking-tight">Courtyard Of Truth</small></span>
+        <span className="ml-3 hidden">{new Date().getFullYear()}</span>
       </div>
       <div className="p-5 flex flex-col text-center"> 
         <ul className="flex gap-3">

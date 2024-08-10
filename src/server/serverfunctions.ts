@@ -24,9 +24,21 @@ export async function registerBeneficiary (data: FormData) {
   console.log('has this been submitted?', formData)
   const tempVal = formData.numberOfChildren + 0
   
-  const newBeneficiary = await db.beneficiary.create({
-    data: { ...formData, numberOfChildren: tempVal }
-  })
-  console.log('was this successfully put in the db?', newBeneficiary)
-  redirect(`/beneficiary-register/${newBeneficiary.id}`)
+  // const newBeneficiary = await db.beneficiary.create({
+  //   data: { ...formData, numberOfChildren: tempVal }
+  // })
+  // console.log('was this successfully put in the db?', newBeneficiary)
+  function getRandomFiveDigitNumber() {
+    return Math.floor(10000 + Math.random() * 90000);
+}
+
+ let id = `iosdifsdhw38242303skf--`
+
+setInterval(() => {
+  id += getRandomFiveDigitNumber();
+  // console.log(randomNumber);
+  // You can return or use this number as needed
+}, 3000);
+ 
+  redirect(`/beneficiary-register/${id}`)
 }
