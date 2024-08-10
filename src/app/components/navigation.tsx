@@ -11,8 +11,8 @@ const Navigation = () => {
     <div className="flex items-center justify-between">
       <Link className="flex-none text-xl font-semibold dark:text-white focus:outline-none focus:opacity-80" href="#" aria-label="Brand">
         <span className="inline-flex items-center gap-x-2 text-xl font-semibold dark:text-white">
-          <Image className="w-10 h-auto" src={Logo} alt="Logo" width={150} height={150} />
-          Brand
+          <Image className="w-12 h-auto" src={Logo} alt="Logo" width={250} height={250} />
+          Courtyard Of Truth
         </span>
       </Link>
       <div className="sm:hidden">

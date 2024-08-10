@@ -14,16 +14,36 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Beneficiary {
+    id                  String      @id @default(uuid())
+    firstname           String
+    lastname            String
+    middlename          String
+    spousename          String
+    email               String
+    profilePicture      String
+    numberOfChildren    Int
+    dateOfBirth         DateTime
+    gender              String
+    workplace           String
+    employmentStatus    String
+    idnumber            String
+    identityType        String
+    voucherId           String
+    createdAt           DateTime @default(now())
+    updatedAt           DateTime @updatedAt
 
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
+    @@index([email, idnumber])
+}
 
-    @@index([name])
+model FoodVoucher {
+    id          String      @id @default(uuid())
+    vouchername String
+    vouchercode String
+    userId      String
+    createdBy   String
+
+    @@index([vouchercode])
 }
 
 // Necessary for Next auth
@@ -62,7 +82,6 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
 }
 
 model VerificationToken {
