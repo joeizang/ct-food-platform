@@ -22,8 +22,8 @@ model Beneficiary {
     spousename          String
     email               String
     profilePicture      String
-    numberOfChildren    Int
-    dateOfBirth         DateTime
+    numberOfChildren    String
+    dateOfBirth         String
     gender              String
     workplace           String
     employmentStatus    String
