@@ -2,10 +2,32 @@
 import { Prisma } from "@prisma/client";
 import { db } from "./db"
 import { redirect } from "next/navigation";
+import { BeneficiarySchema } from "~/models/Beneficiary";
 
+type Beneficiary = {
+  id: string
+  firstname: string;
+  lastname: string;
+  middlename: string;
+  spousename: string;
+  profilePicture: string;
+  voucherId: string;
+  email: string;
+  numberOfChildren: string;
+  gender: string;
+  employmentStatus: string;
+  workplace: string;
+  identityType: string;
+  idnumber: string;
+  dateOfBirth: string;
+}
+
+// this should save to the database.
+// return errors to the page that has the form retaining all the data so it can be corrected.
+// after this is saved in the db, the file upload of the image should happen.
 export async function registerBeneficiary (data: FormData) {
 
-  const formData: Prisma.BeneficiaryCreateInput = {
+  const formData = {
     firstname: data.get("firstname") as string ?? "",
     lastname: data.get("lastname") as string ?? "",
     middlename: data.get("middlename") as string ?? "",
@@ -20,25 +42,22 @@ export async function registerBeneficiary (data: FormData) {
     identityType: data.get("identityType") as string ?? "",
     idnumber: data.get("idnumber") as string ?? "",
     dateOfBirth: data.get("dateofbirth") as string ?? ""
-}
-  console.log('has this been submitted?', formData)
-  const tempVal = formData.numberOfChildren + 0
+  }
+
+  const readyData = BeneficiarySchema.safeParse(formData)
+  let newBeneficiary: Beneficiary
   
-  // const newBeneficiary = await db.beneficiary.create({
-  //   data: { ...formData, numberOfChildren: tempVal }
-  // })
-  // console.log('was this successfully put in the db?', newBeneficiary)
-  function getRandomFiveDigitNumber() {
-    return Math.floor(10000 + Math.random() * 90000);
-}
-
- let id = `iosdifsdhw38242303skf--`
-
-setInterval(() => {
-  id += getRandomFiveDigitNumber();
-  // console.log(randomNumber);
-  // You can return or use this number as needed
-}, 3000);
- 
-  redirect(`/beneficiary-register/${id}`)
+  try {
+    if (!readyData.success) {
+      
+    } else {
+      const validData = readyData.data as Prisma.BeneficiaryCreateInput
+      newBeneficiary = await db.beneficiary.create({
+        data: validData
+      })
+      redirect(`/beneficiary-register/${newBeneficiary.id}`)
+    }
+  } catch (error) {
+    
+  }
 }
