@@ -88,7 +88,7 @@ export default function BeneficiaryRegister () {
         height={500}
       />
 
-       <BeneficiaryForm registerBeneficiary={registerBeneficiary} />
+       <BeneficiaryForm />
     </article>
   );
 }

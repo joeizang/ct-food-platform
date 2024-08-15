@@ -5,6 +5,7 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import NavigationBar from "./components/navigation";
 import Footer from "./components/footer";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Courtyard of Truth Minitries",
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body>
         <NavigationBar />
           {children}
+          <Toaster position="top-right" />
         <Footer />
       </body>
     </html>

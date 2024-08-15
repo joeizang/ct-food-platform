@@ -1,8 +1,11 @@
 "use server";
-import { Prisma } from "@prisma/client";
+import { type Prisma } from "@prisma/client";
 import { db } from "./db"
 import { redirect } from "next/navigation";
 import { BeneficiarySchema } from "~/models/Beneficiary";
+import { SafeParseReturnType } from "zod";
+import { join } from "path";
+import { writeFile } from "fs/promises";
 
 type Beneficiary = {
   id: string
@@ -25,39 +28,26 @@ type Beneficiary = {
 // this should save to the database.
 // return errors to the page that has the form retaining all the data so it can be corrected.
 // after this is saved in the db, the file upload of the image should happen.
-export async function registerBeneficiary (data: FormData) {
-
-  const formData = {
-    firstname: data.get("firstname") as string ?? "",
-    lastname: data.get("lastname") as string ?? "",
-    middlename: data.get("middlename") as string ?? "",
-    spousename: data.get("spousename") as string ?? "",
-    profilePicture: data.get("") as string ?? "",
-    voucherId: data.get("") as string ?? "",
-    email: data.get("email") as string ?? "",
-    numberOfChildren: data.get("numberOfChildren") as string ?? "",
-    gender: data.get("gender") as string ?? "",
-    employmentStatus: data.get("employmentStatus") as string ?? "",
-    workplace: data.get("workplace") as string ?? "",
-    identityType: data.get("identityType") as string ?? "",
-    idnumber: data.get("idnumber") as string ?? "",
-    dateOfBirth: data.get("dateofbirth") as string ?? ""
-  }
-
-  const readyData = BeneficiarySchema.safeParse(formData)
-  let newBeneficiary: Beneficiary
-  
-  try {
-    if (!readyData.success) {
-      
-    } else {
-      const validData = readyData.data as Prisma.BeneficiaryCreateInput
-      newBeneficiary = await db.beneficiary.create({
-        data: validData
-      })
-      redirect(`/beneficiary-register/${newBeneficiary.id}`)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function registerBeneficiary (validData: unknown) {
+  const readyData = BeneficiarySchema.safeParse(validData)
+  let newBeneficiary
+    try {
+      if (!readyData.success) {
+        let errorMessage = ""
+        readyData.error.issues.forEach((x) => {
+          errorMessage = `${errorMessage} ${x.path[0]} : ${x.message}`
+        })
+        return readyData.error.issues
+      } else {
+        newBeneficiary = await db.beneficiary.create({
+          data: (readyData.data as Prisma.BeneficiaryCreateInput)
+        })   
+      }
+    } catch (error) {
+      console.log('There was an error ', (error as Error).message)
     }
-  } catch (error) {
-    
-  }
+    redirect(`/beneficiary-register/${newBeneficiary?.id}`)
 }
+
+//d225b41d-c9b0-4d63-a0bb-39b8969e2ea7
