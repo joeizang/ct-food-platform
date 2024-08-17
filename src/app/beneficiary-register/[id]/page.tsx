@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { join } from 'path';
 import React from 'react'
 import ProfilePhotoUploadForm from '~/app/components/beneficiaryProfileUpload';
+import { db } from '~/server/db';
 
 export default async function UploadImage ({ params } : { params: { id: string }}) {
 
@@ -15,10 +16,17 @@ export default async function UploadImage ({ params } : { params: { id: string }
     }
     const bytes = await file?.arrayBuffer()
     const buffer = Buffer.from(bytes)
-    const path = join(`${process.cwd()}/public/uploads/`, 'pix/', `${file.name}-${params.id}`)
+    const path = join(`${process.cwd()}/public/images/`, 'beneficiaries/', `${params.id}-${file.name}`)
+    const updated = await db.beneficiary.update({
+      where: {
+        id: params.id
+      },
+      data: {
+        profilePicture: path
+      }
+    })
     await writeFile(path, buffer)
-    revalidatePath("/beneficiaries")
-    redirect('/beneficiaries')
+    redirect(`/registered-beneficiaries/${updated.id}`)
   }
 
   return (
