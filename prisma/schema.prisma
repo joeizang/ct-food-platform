@@ -22,6 +22,8 @@ model Beneficiary {
     spousename          String
     email               String
     profilePicture      String
+    validationPicture   String
+    isRegistered        Boolean     @default(false)
     numberOfChildren    String
     dateOfBirth         String
     gender              String

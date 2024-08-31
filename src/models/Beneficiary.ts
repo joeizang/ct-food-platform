@@ -20,9 +20,10 @@ export const BeneficiarySchema = z.object({
     message: "email address is too short."
   }).max(100, { message: "Email address cannot be longer than 100 characters" }),
   spousename: z.string().trim().max(50, { message: "Spouse name cannot be longer than 50 characters" }).optional(),
-  profilePicture: z.string().max(1500, { message: "Last name cannot be longer than 1500 characters" }).optional(),
+  profilePicture: z.string().max(500, { message: "profile threw an error" }).optional(),
   numberOfChildren: z.string().optional(),
   voucherId: z.string().max(150, { message: "voucher ID has an invalid length" }).optional(),
+  validationPicture: z.string().max(500, { message: "id picture threw an error"}).optional(),
   gender: z.string({ required_error: "Gender cannot be un-selected" }).max(10, { message: "Gender has an invalid length" }),
   employmentStatus: z.string({
     required_error: "Employment Status must be provided"

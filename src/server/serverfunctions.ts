@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use server";
 import { type Prisma } from "@prisma/client";
 import { db } from "./db"
 import { redirect } from "next/navigation";
 import { BeneficiarySchema } from "~/models/Beneficiary";
-import { SafeParseReturnType } from "zod";
 import { join } from "path";
 import { writeFile } from "fs/promises";
+import toast from "react-hot-toast";
 
 type Beneficiary = {
   id: string
@@ -15,6 +16,7 @@ type Beneficiary = {
   spousename: string;
   profilePicture: string;
   voucherId: string;
+  validationPicture: string;
   email: string;
   numberOfChildren: string;
   gender: string;
@@ -51,3 +53,18 @@ export async function registerBeneficiary (validData: unknown) {
 }
 
 //d225b41d-c9b0-4d63-a0bb-39b8969e2ea7
+
+export async function uploadBeneficiaryProfilePhoto(data: FormData, id: string) {
+  const file = data.get("profilepic") as unknown as File
+  const bytes = await file?.arrayBuffer()
+  const buffer = Buffer.from(bytes)
+  const path = join(`${process.cwd()}/public/images/`, 'beneficiaries/', `${id}-profile-${file.name}`)
+  const updated = await db.beneficiary.update({
+    where: { id: id },
+    data: {
+      profilePicture: path
+    }
+  })
+  await writeFile(path, buffer)
+  redirect(`/registered-beneficiaries/${updated.id}`)
+}

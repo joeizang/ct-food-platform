@@ -31,6 +31,7 @@ export default function BeneficiaryForm (props: BeneficiaryFormProps) {
       spousename: formData.get("spousename") as string ?? "",
       profilePicture: formData.get("") as string ?? "",
       voucherId: formData.get("") as string ?? "",
+      validationPicture: formData.get("") as string ?? "",
       email: formData.get("email") as string ?? "",
       numberOfChildren: formData.get("numberOfChildren") as string ?? "0",
       gender: formData.get("gender") as string ?? "",
@@ -52,7 +53,7 @@ export default function BeneficiaryForm (props: BeneficiaryFormProps) {
         await registerBeneficiary(readyData.data as Prisma.BeneficiaryCreateInput)  
       }
     } catch (error) {
-      
+      console.log(error)
     }
   }
 
