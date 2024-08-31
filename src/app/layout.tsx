@@ -16,11 +16,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  modal
+}: Readonly<{ 
+  children: React.ReactNode,
+  modal: React.ReactNode 
+}>) {
   return (
     <html lang="en" className={`bg-seance-950 text-seance-300 ${GeistSans.variable}`}>
       <body>
         <NavigationBar />
+          {modal}
           {children}
           <Toaster position="top-right" />
         <Footer />
