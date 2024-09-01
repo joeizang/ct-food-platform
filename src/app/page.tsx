@@ -5,14 +5,14 @@ import ModalForm from "./components/modal";
 export default function HomePage() {
   return (
     <main className="flex flex-col items-center justify-center bg-gradient-to-b from-[#76129b] to-[#15162c] text-seance-200">
-      <button
+      {/* <button
         data-modal-target="crud-modal"
         data-modal-toggle="crud-modal"
-        className="text-white bg-tulip-tree-700 mt-5 hover:bg-tulip-tree-800 focus:ring-tulip-tree-300 dark:bg-tulip-tree-600 dark:hover:bg-tulip-tree-700 dark:focus:ring-tulip-tree-800 block rounded-lg px-5 py-2.5 text-center text-sm font-medium focus:outline-none focus:ring-4"
+        className="text-white bg-tulip-tree-700 mt-5 hover:bg-tulip-tree-800 focus:ring-tulip-tree-300 dark:bg-tulip-tree-600 dark:hover:bg-tulip-tree-700 dark:focus:ring-tulip-tree-800 block rounded-lg px-5 py-2.5 text-center text-sm font-medium focus:outline-none focus:ring-4 hidden"
         type="button"
       >
         Toggle modal
-      </button>
+      </button> */}
       <div className="flex flex-col bg-cover bg-center sm:w-full">
         <Image
           src="/images/marketplace.webp"
@@ -29,7 +29,7 @@ export default function HomePage() {
       <div className="mx-4 mt-8 space-y-4 lg:mt-16">
         <p className="lg:text-2xl">
           If you have registered as a beneficiary before and wish to check the
-          status of your registration click <Link href={"/search"}>here</Link>
+          status of your registration click <Link href={"/search-beneficiaries"}>here</Link>
         </p>
         <p className="lg:text-2xl">
           If not the click any of the buttons below to begin
@@ -51,7 +51,7 @@ export default function HomePage() {
           </Link>
         </div>
       </div>
-      <ModalForm />
+      {/* <ModalForm /> */}
     </main>
   );
 }

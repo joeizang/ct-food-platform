@@ -68,3 +68,7 @@ export async function uploadBeneficiaryProfilePhoto(data: FormData, id: string) 
   await writeFile(path, buffer)
   redirect(`/registered-beneficiaries/${updated.id}`)
 }
+
+export async function searchServerAction(data: FormData) {
+  console.log('hi')
+}
